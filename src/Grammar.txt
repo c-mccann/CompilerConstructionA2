@@ -1,0 +1,30 @@
+Question 1: Left Recursion Eliminated
+
+S           ::=     Exp endofline
+Exp         ::=     Term Exp'
+Exp'        ::=     + Term Exp' |   - Term Exp' |   epsilon
+Term        ::=     Factor Term'
+Term'       ::=     * Factor Term'  |   / Factor Term'  |   % Factor Term'  |   epsilon
+Factor      ::=     num |   id  |   Fncall  |   Aref    |   (Exp)
+Fncall      ::=     id(Arglist)
+Aref        ::=     id[Indices]
+Arglist     ::=     Exp |   Exp, Arglist
+Indices     ::=     Exp |   Exp, Indices
+
+
+Question 3: Left Factoring of grammar to make it LL(1)
+
+S           ::=     Exp endofline
+Exp         ::=     Term Exp'
+Exp'        ::=     A Exp   |   epsilon
+A           ::=     +   |   -
+
+Term        ::=     Factor Term'
+Term'       ::=     B Term  |   epsilon
+B           ::=     *   |   /   |   %
+
+Factor      ::=     num |   id Factor'  |   (Exp)
+Factor'     ::=     (Arglist)   |   [Arglist]   |   epsilon
+
+Arglist     ::=     , Arglist   |   epsilon
+C           ::=     Exp Arglist
